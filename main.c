@@ -8,7 +8,7 @@
 #define FACES 13
 /* NÃO MODIFIQUE O CÓDIGO ACIMA */
 #define COLUNAS 4           // Você pode mudar o valor das constantes para testar o programa
-#define CARTAS_NA_MAO 4
+#define CARTAS_NA_MAO 8
 /* NÃO MODIFIQUE O CÓDIGO ABAIXO */
 //#define Gerador
 //#define Teste
@@ -123,7 +123,7 @@ int main(int argv, char* argc[])
 //argc[2] -> quantidade de colunas a serem impressas
 //argc[3] -> quantidade de elementos a serem transferidos para a hand
 //argc[4] -> arquivo .dat com as sequencia de cartas pré-embaralhadas
-// Nelson -  43 984871043
+
 int main(int argv, char* argc[])
 {
     Card deck[CARDS + 1]; // define array of Cards
@@ -163,7 +163,37 @@ int main(int argv, char* argc[])
     } 
 
     // Cria um arquivo texto com a mesma saída de print_deck, mas em um arquivo.
-    print_deck_file(deck, atoi(argc[2]));
+
+    fillHandExt(deck, hand, atoi(argc[3]));
+    
+
+    if ((cfPtr = fopen("cardprint4.txt", "w")) == NULL) {
+        fprintf(stderr, "File could not be opened.\n");
+    }
+    else {
+
+        fprintf(cfPtr, "Hand\n");
+        if (hand[0].face_number != 0) {
+            for (i = 0; hand[i + 1].face_number != 0; ++i) {
+                fprintf(cfPtr, "%5s of %-8s%s", hand[i].face, hand[i].suit,
+                    (i + 1) % atoi(argc[2]) ? "  " : "\n");
+            } // end for
+            fprintf(cfPtr, "%5s of %-8s%s", hand[i].face, hand[i].suit, "\n");
+        }
+        fprintf(cfPtr, "Deck\n");
+        if (deck[0].face_number != 0) {
+            for (i = 0; deck[i + 1].face_number != 0; ++i) {
+                fprintf(cfPtr, "%5s of %-8s%s", deck[i].face, deck[i].suit,
+                    (i + 1) % atoi(argc[2]) ? "  " : "\n");
+            } // end for
+            fprintf(cfPtr, "%5s of %-8s%s", deck[i].face, deck[i].suit, "\n");
+        }
+
+        fclose(cfPtr);
+    }
+
+
+    //print_deck_file(deck, atoi(argc[2]));
         
 #ifdef Teste
     // Testa se o arquivo contém as informações corretas
@@ -299,6 +329,7 @@ void print_deck_file(Card* const wDeck, const int Ncolumns) {
     }
 }
 
+
 unsigned int fillHandExt(Card* const wDeck, Card* const wHand, const unsigned int Ncards)
 {
     /* NÃO MODIFIQUE O CÓDIGO ACIMA */
@@ -316,6 +347,7 @@ unsigned int fillHandExt(Card* const wDeck, Card* const wHand, const unsigned in
     /* NÃO MODIFIQUE O CÓDIGO ABAIXO */
 }
 
+
 /*  Descrição do Assignment  */
 /*
     Neste assignment você deve entender a parte do código necessária para realizar a tarefa e deve
@@ -326,7 +358,7 @@ codificar a função fillHandExt segundo as especificações abaixo
 para a variável interna wDeck. Esta função é uma modificação da função fillDeck da aula. Adicionalmente a função 
 introduz uma carta de terminação ou terminador ao final do vetor do deck de cartas. O terminador é uma carta cujos
 campos face e name apontam para NULL e os números da carta e do naipe são zero. Isso pode ser visto quando fillDeckExt
-insere o terminador ao final de seu código, a partir da linha 224.
+insere o terminador ao final de seu código, a partir da linha 256.
     O terminador tem por finalidade indicar o final de um dado vetor de cartas.
     A função dealExt usa o terminador para imprimir as cartas de um certo deck de cartas e determinar a carta final
 deste. Assim, qualquer que seja o tamanho do deck de cartas, esta função é capaz de imprimí-lo na tela.
