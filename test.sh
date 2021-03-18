@@ -12,10 +12,17 @@ input5=$5
 expected_output=$(cat "$input5")
 
 output=$(./main.o "$input1" "$input2" "$input3" "$input4")
-
+#wait
 #echo deckprint2.txt
 #hexdump -C deckprint2.txt
+echo "saida"
 echo
+echo "$output"
+echo
+echo
+echo "saida esperada"
+echo
+echo "$expected_output"
 echo
 echo
 #echo ./main.o "$input1" "$input2" "$input3"

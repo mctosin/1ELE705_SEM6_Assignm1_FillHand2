@@ -6,10 +6,10 @@
 
 #define CARDS 52
 #define FACES 13
-/* N√O MODIFIQUE O C”DIGO ACIMA */
-#define COLUNAS 4           // VocÍ pode mudar o valor das constantes para testar o programa
+/* N√ÉO MODIFIQUE O C√ìDIGO ACIMA */
+#define COLUNAS 4           // Voc√™ pode mudar o valor das constantes para testar o programa
 #define CARTAS_NA_MAO 4
-/* N√O MODIFIQUE O C”DIGO ABAIXO */
+/* N√ÉO MODIFIQUE O C√ìDIGO ABAIXO */
 //#define Gerador
 //#define Teste
 
@@ -17,8 +17,8 @@
 typedef struct {
     const char* face; // define pointer face   
     const char* suit; // define pointer suit
-    unsigned int face_number; // Define o n˙mero da face da carta
-    unsigned int suit_number; // Define o n˙mero do naipe
+    unsigned int face_number; // Define o n√∫mero da face da carta
+    unsigned int suit_number; // Define o n√∫mero do naipe
 } Card; // end struct card                         
 
 //typedef struct card Card; // new type name for struct card   
@@ -39,12 +39,12 @@ unsigned int fillHandExt(Card* const wDeck, Card* const wHand, const unsigned in
 //        == "1" programa de testes
 //argc[2] -> quantidade de colunas a serem impressas
 //argc[3] -> quantidade de elementos a serem transferidos para a hand
-//argc[4] -> arquivo .dat com as sequencia de cartas prÈ-embaralhadas
+//argc[4] -> arquivo .dat com as sequencia de cartas pr√©-embaralhadas
 //
 int main(int argv, char* argc[])
 {
     Card deck[CARDS + 1]; // define array of Cards
-    Card hand[CARDS + 1]; // reserva espaÁo para a m„o
+    Card hand[CARDS + 1]; // reserva espa√ßo para a m√£o
 
     // initialize array of pointers
     const char* face[] = { "Ace", "Deuce", "Three", "Four", "Five",
@@ -61,13 +61,13 @@ int main(int argv, char* argc[])
     shuffle(deck); // put Cards in random order
 
     if (atoi(argc[1]) == 1) {
-        // CÛdigo do servidor de testes
+        // C√≥digo do servidor de testes
         static Card deck_test[CARDS + 1];
         FILE* cfPtr_t;
         int l;
 
-        // LÍ os dados prÈ embaralhados do arquivo em argc[4]
-        // e reconstrÛi em deck_test
+        // L√™ os dados pr√© embaralhados do arquivo em argc[4]
+        // e reconstr√≥i em deck_test
         if ((cfPtr_t = fopen(argc[4], "rb")) == NULL) {
             fprintf(stderr, "File could not be opened.\n");
         } // end if
@@ -80,7 +80,7 @@ int main(int argv, char* argc[])
                 }
             }
             fclose(cfPtr_t);
-            // ReconstrÛi as strings dos elementos de deck_test
+            // Reconstr√≥i as strings dos elementos de deck_test
             for (l = 0; deck_test[l].face_number != 0; l++) {
                 deck_test[l].face = face[deck_test[l].face_number - 1];
                 deck_test[l].suit = suit[deck_test[l].suit_number - 1];
@@ -89,24 +89,28 @@ int main(int argv, char* argc[])
         //print_deck(deck_test, atoi(argc[2]), 1);
         //fprintf(stderr, "\n");
         fillHandExt(deck_test, hand, atoi(argc[3]));
+        printf("Hand\n");
         print_deck(hand, atoi(argc[2]), 0);
+        printf("Deck\n");
         print_deck(deck_test, atoi(argc[2]), 0);
     }
     else {
-        // CÛdigo do aluno
+        // C√≥digo do aluno
         unsigned int colunas = COLUNAS, cartas_na_mao = CARTAS_NA_MAO;
 
+        fprintf(stderr, "Deck de cartas original\n");
         print_deck(deck, colunas, 1);
+        fprintf(stderr, "\n");
 
         fillHandExt(deck, hand, cartas_na_mao);
-
+        fprintf(stderr, "Mao do jogador preenchida com %d cartas\n", CARTAS_NA_MAO);
+        print_deck(hand, colunas, 1);
         fprintf(stderr, "\n");
 
-        print_deck(hand, colunas, 0);
-
+        fprintf(stderr, "Deck de cartas apos retirar as %d cartas\n", CARTAS_NA_MAO);
+        print_deck(deck, colunas, 1);
         fprintf(stderr, "\n");
-
-        print_deck(deck, colunas, 0);
+       
     }
 
     return 0;
@@ -118,12 +122,12 @@ int main(int argv, char* argc[])
 //        == "1" programa de testes
 //argc[2] -> quantidade de colunas a serem impressas
 //argc[3] -> quantidade de elementos a serem transferidos para a hand
-//argc[4] -> arquivo .dat com as sequencia de cartas prÈ-embaralhadas
+//argc[4] -> arquivo .dat com as sequencia de cartas pr√©-embaralhadas
 // Nelson -  43 984871043
 int main(int argv, char* argc[])
 {
     Card deck[CARDS + 1]; // define array of Cards
-    Card hand[CARDS + 1]; // reserva espaÁo para a m„o
+    Card hand[CARDS + 1]; // reserva espa√ßo para a m√£o
 
     // initialize array of pointers
     const char* face[] = { "Ace", "Deuce", "Three", "Four", "Five",
@@ -138,9 +142,9 @@ int main(int argv, char* argc[])
     fillDeckExt(deck, face, suit);
     shuffle(deck); // put Cards in random order
     //dealExt(deck); // deal all 52 Cards
-    //print_deck(deck, atoi(argc[1])); // argc[1] È a quantidade de colunas
+    //print_deck(deck, atoi(argc[1])); // argc[1] √© a quantidade de colunas
 
-    // Cria um arquivo bin·rio com o contÈudo das structs que definem cada carta no deck,
+    // Cria um arquivo bin√°rio com o cont√©udo das structs que definem cada carta no deck,
     // incluindo o elemento terminador.
 
     FILE* cfPtr;
@@ -158,11 +162,11 @@ int main(int argv, char* argc[])
         fclose(cfPtr); 
     } 
 
-    // Cria um arquivo texto com a mesma saÌda de print_deck, mas em um arquivo.
+    // Cria um arquivo texto com a mesma sa√≠da de print_deck, mas em um arquivo.
     print_deck_file(deck, atoi(argc[2]));
         
 #ifdef Teste
-    // Testa se o arquivo contÈm as informaÁıes corretas
+    // Testa se o arquivo cont√©m as informa√ß√µes corretas
     
     static Card deck_test[CARDS + 1];
 
@@ -178,14 +182,14 @@ int main(int argv, char* argc[])
             }
         }
         fclose(cfPtr);
-        // ReconstrÛi as strings dos elementos de deck_test
+        // Reconstr√≥i as strings dos elementos de deck_test
         for (i = 0; deck_test[i].face_number != 0; i++) {
             deck_test[i].face = face[deck_test[i].face_number - 1];
             deck_test[i].suit = suit[deck_test[i].suit_number - 1];
         }
     }
 
-    print_deck_file(deck_test, atoi(argc[2])); // argc[2] È a quantidade de colunas
+    print_deck_file(deck_test, atoi(argc[2])); // argc[2] √© a quantidade de colunas
 #endif
 
     return 0;
@@ -237,29 +241,29 @@ void dealExt(const Card* const wDeck)
 } // end function deal
 
 void print_deck(Card* const wDeck, const int Ncolumns, const int printpar) {
-    // Imprime as cartas do maÁo apontado por wDeck
-    // O terminador n„o È impresso, obviamente
-    // Se printpar == 0 imprime na stdio; caso contr·rio imprime na stderr
+    // Imprime as cartas do ma√ßo apontado por wDeck
+    // O terminador n√£o √© impresso, obviamente
+    // Se printpar == 0 imprime na stdio; caso contr√°rio imprime na stderr
 
     size_t i; // counter
 
     if (printpar == 0) {
-        if (wDeck[0].face_number != 0) { //Testa se a primeira carta È o terminador
-            for (i = 0; wDeck[i + 1].face_number != 0; ++i) { //Testa se a prÛxima carta n„o È o terminador
+        if (wDeck[0].face_number != 0) { //Testa se a primeira carta √© o terminador
+            for (i = 0; wDeck[i + 1].face_number != 0; ++i) { //Testa se a pr√≥xima carta n√£o √© o terminador
                 printf("%5s of %-8s%s", wDeck[i].face, wDeck[i].suit,
                     (i + 1) % Ncolumns ? "  " : "\n");
             }
-            //ApÛs encontrar o terminador, imprime a carta que falta
+            //Ap√≥s encontrar o terminador, imprime a carta que falta
             printf("%5s of %-8s%s", wDeck[i].face, wDeck[i].suit, "\n");
         }
     }
     else {
-        if (wDeck[0].face_number != 0) { //Testa se a primeira carta È o terminador
-            for (i = 0; wDeck[i + 1].face_number != 0; ++i) { //Testa se a prÛxima carta n„o È o terminador
+        if (wDeck[0].face_number != 0) { //Testa se a primeira carta √© o terminador
+            for (i = 0; wDeck[i + 1].face_number != 0; ++i) { //Testa se a pr√≥xima carta n√£o √© o terminador
                 fprintf(stderr, "%5s of %-8s%s", wDeck[i].face, wDeck[i].suit,
                     (i + 1) % Ncolumns ? "  " : "\n");
             }
-            //ApÛs encontrar o terminador, imprime a carta que falta
+            //Ap√≥s encontrar o terminador, imprime a carta que falta
             fprintf(stderr, "%5s of %-8s%s", wDeck[i].face, wDeck[i].suit, "\n");
         }
     }
@@ -297,53 +301,67 @@ void print_deck_file(Card* const wDeck, const int Ncolumns) {
 
 unsigned int fillHandExt(Card* const wDeck, Card* const wHand, const unsigned int Ncards)
 {
-    /* N√O MODIFIQUE O C”DIGO ACIMA */
-    // Apague o cÛdigo abaixo e faÁa aqui o cÛdigo da funÁ„o
+    /* N√ÉO MODIFIQUE O C√ìDIGO ACIMA */
+    // Apague o c√≥digo abaixo e fa√ßa aqui o c√≥digo da fun√ß√£o
+    
     unsigned int i = 0;
-    wHand[i] = wDeck[10];
-    i++;
+   
     wHand[i].face_number = 0;
     wHand[i].suit_number = 0;
     wHand[i].face = NULL;
     wHand[i].suit = NULL;
+    
     return i;
-
-    /* N√O MODIFIQUE O C”DIGO ABAIXO */
+    
+    /* N√ÉO MODIFIQUE O C√ìDIGO ABAIXO */
 }
 
-/*  DescriÁ„o do Assignment  */
+/*  Descri√ß√£o do Assignment  */
 /*
-    Neste assignment vocÍ deve entender a parte do cÛdigo necess·ria para realizar a tarefa e deve
-codificar a funÁ„o fillHandExt segundo as especificaÁıes abaixo
-    Neste programa, a struct Card que define quantidade de informac„o que cada carta armazena foi modificada.
-    Agora, para cada carta armazena-se tambÈm o n˙mero da face e o n˙mero do naipe.
-    Assim, a funÁ„o fillDeckExt preenche as 52 cartas do baralho ‡ partir do endereÁo de um deck de cartas passado
-para a vari·vel interna wDeck. Esta funÁ„o È uma modificaÁ„o da funÁ„o fillDeck da aula.
-    Adicionalmente È introduzido o conceito do terminador de cartas, que È uma carta cujos campos de face e nome 
-apontam para NULL e os n˙meros da carta e do naipe s„o zero. Isso pode ser visto na ao final da funÁ„o.
-    A funÁ„o dealExt usa o terminador para imprimir as cartas de um certo deck de cartas e determinar a carta final
-deste. Assim, qualquer que seja o tamanho do deck de cartas, esta funÁ„o È capaz de imprimÌ-lo na tela.
-    A funÁ„o dealExt n„o È usada no programa, pois foi criada uma funÁ„o com mais funcionalidades denomiada
-print_deck.
-    A funÁ„o print_deck tem por par‚metros endereÁo de um dado deck ou maÁo de cartas com quantidade de cartas qualquer, 
-o n˙mero de colunas no qual se deseja imprimir uma carta, entre 1 e 4 colunas, e o par‚metro de impress„o (printpar).
-Se o par‚metro de impress„o for zero, a funÁ„o imprime na stdio e se for qualquer outro, imprime na stderr. A funÁ„o
-print_deck imprime as cartas de um determinado maÁo de cartas atÈ encontrar o terminador.
-    O cÛdigo principal que vai ser executado est· no corpo do else a partir da linha 96. TambÈm faz parte do cÛdigo
-a vari·vel Card hand, definida na linha 47 e as constantes COLUNAS e CARTAS_NA_MAO, definidas nas linhas 10 e 11.
-    A vari·vel hand ir· armazenar uma certa quantidade de cartas que um certo jogador possui, tambÈm chamada de m„o.
-Dependendo do jogo, uma m„o de cartas pode ter uma quantidade diferente e pode variar no decorrer do jogo.
-    Assim, a funÁ„o fillHandExt foi criada como forma de preencher uma m„o de cartas ‡ partir de um deck de cartas
-existente. A funÁ„o fillHandExt recebe como par‚metros o endereÁo do deck, o endereÁo da hand (m„o de cartas) e a 
-quantidade de cartas que ser· transferida do deck para a hand.
-    ApÛs a ˙ltima carta transferida para a hand, um terminador deve ser inserido na mesma, indicando o fim desta 
+    Neste assignment voc√™ deve entender a parte do c√≥digo necess√°ria para realizar a tarefa e deve
+codificar a fun√ß√£o fillHandExt segundo as especifica√ß√µes abaixo
+    Neste programa, a struct Card que define quantidade de informac√£o que cada carta armazena foi modificada.
+    Agora, em cada carta armazena-se tamb√©m o n√∫mero da face e o n√∫mero do naipe.
+    Assim, a fun√ß√£o fillDeckExt preenche as 52 cartas do baralho √† partir do endere√ßo de um deck de cartas passado
+para a vari√°vel interna wDeck. Esta fun√ß√£o √© uma modifica√ß√£o da fun√ß√£o fillDeck da aula. Adicionalmente a fun√ß√£o 
+introduz uma carta de termina√ß√£o ou terminador ao final do vetor do deck de cartas. O terminador √© uma carta cujos
+campos face e name apontam para NULL e os n√∫meros da carta e do naipe s√£o zero. Isso pode ser visto quando fillDeckExt
+insere o terminador ao final de seu c√≥digo, a partir da linha 224.
+    O terminador tem por finalidade indicar o final de um dado vetor de cartas.
+    A fun√ß√£o dealExt usa o terminador para imprimir as cartas de um certo deck de cartas e determinar a carta final
+deste. Assim, qualquer que seja o tamanho do deck de cartas, esta fun√ß√£o √© capaz de imprim√≠-lo na tela.
+    A fun√ß√£o dealExt n√£o √© usada no programa, pois foi criada uma fun√ß√£o com mais funcionalidades denominada print_deck.
+    A fun√ß√£o print_deck tem por par√¢metros o endere√ßo de um dado deck ou ma√ßo de cartas com quantidade de cartas qualquer, 
+o n√∫mero de colunas no qual se deseja imprimir uma carta, entre 1 e 4 colunas, e o par√¢metro de impress√£o (printpar).
+Se o par√¢metro de impress√£o for zero, a fun√ß√£o imprime na stdio e se for qualquer outro, imprime na stderr. A fun√ß√£o
+print_deck imprime as cartas de um determinado ma√ßo de cartas at√© encontrar o terminador.
+    O c√≥digo principal que vai ser executado no Visual Studio est√° no corpo do else a partir da linha 98. Tamb√©m faz 
+parte do c√≥digo a vari√°vel Card hand, definida na linha 47 e as constantes COLUNAS e CARTAS_NA_MAO, definidas nas
+linhas 10 e 11.
+    O vetor hand √© um vetor do tipo Card que ir√° armazenar uma certa quantidade de cartas que um certo jogador possui,
+tamb√©m chamada de m√£o. Dependendo do jogo, uma m√£o de cartas pode ter uma quantidade diferente e pode variar no decorrer
+do jogo.
+    Assim, a fun√ß√£o fillHandExt foi criada como forma de preencher uma m√£o de cartas √† partir de um deck de cartas
+existente. A fun√ß√£o fillHandExt recebe como par√¢metros o endere√ßo do deck, o endere√ßo da hand (m√£o de cartas) e a 
+quantidade de cartas que ser√° transferida do deck para a hand.
+    Ap√≥s a √∫ltima carta transferida para a hand, um terminador deve ser inserido na mesma, indicando o fim desta 
 sequencia armazenada.
-    Cada carta deve ser transferida para a hand ‡ partir do inÌcio do deck (posiÁ„o zero do vetor). Assim, apÛs a
-transferÍncia de cada carta, todas as cartas remanecentes do deck devem ser deslocadas de uma posiÁ„o em direÁ„o ao
-inÌcio do deck, incluindo o terminador que ser· o ˙ltimo elemento do vetor deslocado. Assim, apÛs cada transferÍncia,
-o deck conter· uma carta a menos.
-    Todas as informaÁıes necess·rias para codificar a funÁ„o fillHandExt est„o disponÌveis pelas suas vari·veis de
-passagem de par‚metros. Assim, È proibido utilizar qualque constante, vari·vel ou elemento externo ‡ funÁ„o.
-    N„o modifique o cÛdigo do programa, a n„o ser nas ·reas especificadas nos coment·rios.
+    A fun√ß√£o fillHandExt considera que a m√£o de cartas ainda n√£o existe, existe apenas um vetor do tipo Card cujo 
+endere√ßo foi passado para a fun√ß√£o atrav√©s de wHand.
+    Cada carta deve ser transferida para a hand √† partir do in√≠cio do deck (posi√ß√£o zero do vetor). Assim, ap√≥s a
+transfer√™ncia de cada carta, todas as cartas remanecentes do deck devem ser deslocadas de uma posi√ß√£o em dire√ß√£o ao
+in√≠cio do deck, incluindo o terminador que ser√° o √∫ltimo elemento do vetor deslocado. Assim, ap√≥s cada transfer√™ncia,
+o deck conter√° uma carta a menos.
+    Adicionalmente a fun√ß√£o fillHandExt retorna atrav√©s do retorno da fun√ß√£o (comando return) a quantidade de cartas
+efetivamente transferidas do deck para a hand. Por exemplo, a fun√ß√£o pode ter sido chamada para transferir 15 cartas
+do deck para uma hand. Se o deck contiver apenas 7 cartas, somente estas 7 cartas ser√£o transferidas e a fun√ß√£o
+retornara o inteiro 7. Neste caso o deck de cartas ficar√° sem carta alguma, restando apenas o terminador na posi√ß√£o
+zero do vetor de cartas que define o deck.
+    A fun√ß√£o fillHandDeck pode ser utilizada para inicializar uma dada hand vazia. Se a quantidade de cartas passada
+passada para a fun√ß√£o for zero, ent√£o ela somente insere o terminador na hand cujo endere√ßo foi passado para wHand.
+O deck neste caso permanece inalterado, obviamente.
+    Todas as informa√ß√µes necess√°rias para codificar a fun√ß√£o fillHandExt est√£o dispon√≠veis pelas suas vari√°veis de
+passagem de par√¢metros. Assim, √© proibido utilizar qualque constante, vari√°vel ou elemento externo √† fun√ß√£o.
+    N√£o modifique o c√≥digo do programa, a n√£o ser nas √°reas especificadas nos coment√°rios.
 
 */
