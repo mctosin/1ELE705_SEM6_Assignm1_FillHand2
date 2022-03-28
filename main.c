@@ -33,7 +33,7 @@ void dealExt(const Card* const wDeck);
 void print_deck_file(Card* const wDeck, const int Ncolumns);
 unsigned int fillHandExt(Card* const wDeck, Card* const wHand, const unsigned int Ncards);
 
-#ifndef Gerador
+#ifndef Gerador // Se a constante Gerador não estiver definida, compila o código até o #else (linha 119)
 
 //argc[1] == "0" programa aluno
 //        == "1" programa de testes
@@ -116,7 +116,7 @@ int main(int argv, char* argc[])
     return 0;
 } // end main
 
-#else
+#else // Caso contrário (a constante Gerador está definida) compila o código até o #endif (linha 228)
 
 //argc[1] == "0" programa aluno
 //        == "1" programa de testes
