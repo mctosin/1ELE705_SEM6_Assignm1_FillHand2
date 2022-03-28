@@ -60,7 +60,24 @@ int main(int argv, char* argc[])
     fillDeckExt(deck, face, suit);
     shuffle(deck); // put Cards in random order
 
-    if (atoi(argc[1]) == 1) {
+    if (atoi(argc[1]) == 0) {
+        // Código do aluno
+        unsigned int colunas = COLUNAS, cartas_na_mao = CARTAS_NA_MAO;
+
+        fprintf(stderr, "Deck de cartas original\n");
+        print_deck(deck, colunas, 1);
+        fprintf(stderr, "\n");
+
+        fillHandExt(deck, hand, cartas_na_mao);
+        fprintf(stderr, "Mao do jogador preenchida com %d cartas\n", CARTAS_NA_MAO);
+        print_deck(hand, colunas, 1);
+        fprintf(stderr, "\n");
+
+        fprintf(stderr, "Deck de cartas apos retirar as %d cartas\n", CARTAS_NA_MAO);
+        print_deck(deck, colunas, 1);
+        fprintf(stderr, "\n");
+    }
+    else {
         // Código do servidor de testes
         static Card deck_test[CARDS + 1];
         FILE* cfPtr_t;
@@ -93,24 +110,6 @@ int main(int argv, char* argc[])
         print_deck(hand, atoi(argc[2]), 0);
         printf("Deck\n");
         print_deck(deck_test, atoi(argc[2]), 0);
-    }
-    else {
-        // Código do aluno
-        unsigned int colunas = COLUNAS, cartas_na_mao = CARTAS_NA_MAO;
-
-        fprintf(stderr, "Deck de cartas original\n");
-        print_deck(deck, colunas, 1);
-        fprintf(stderr, "\n");
-
-        fillHandExt(deck, hand, cartas_na_mao);
-        fprintf(stderr, "Mao do jogador preenchida com %d cartas\n", CARTAS_NA_MAO);
-        print_deck(hand, colunas, 1);
-        fprintf(stderr, "\n");
-
-        fprintf(stderr, "Deck de cartas apos retirar as %d cartas\n", CARTAS_NA_MAO);
-        print_deck(deck, colunas, 1);
-        fprintf(stderr, "\n");
-       
     }
 
     return 0;
