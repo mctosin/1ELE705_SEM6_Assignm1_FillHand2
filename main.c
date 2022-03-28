@@ -357,8 +357,9 @@ codificar a função fillHandExt segundo as especificações abaixo
 para a variável interna wDeck. Esta função é uma modificação da função fillDeck da aula. Adicionalmente a função 
 introduz uma carta de terminação ou terminador ao final do vetor do deck de cartas. O terminador é uma carta cujos
 campos face e name apontam para NULL e os números da carta e do naipe são zero. Isso pode ser visto quando fillDeckExt
-insere o terminador ao final de seu código, a partir da linha 256.
-    O terminador tem por finalidade indicar o final de um dado vetor de cartas.
+insere o terminador ao final de seu código, a partir da linha 256. O terminador tem por finalidade indicar o final 
+de um dado vetor de cartas.A vantagem do terminador é que não é preciso de antemão o tamanho do deck de cartas. 
+Basta percorrer o Deck de cartas até encontrar o terminador. 
     A função dealExt usa o terminador para imprimir as cartas de um certo deck de cartas e determinar a carta final
 deste. Assim, qualquer que seja o tamanho do deck de cartas, esta função é capaz de imprimí-lo na tela.
     A função dealExt não é usada no programa, pois foi criada uma função com mais funcionalidades denominada print_deck.
@@ -366,7 +367,7 @@ deste. Assim, qualquer que seja o tamanho do deck de cartas, esta função é ca
 o número de colunas no qual se deseja imprimir uma carta, entre 1 e 4 colunas, e o parâmetro de impressão (printpar).
 Se o parâmetro de impressão for zero, a função imprime na stdio e se for qualquer outro, imprime na stderr. A função
 print_deck imprime as cartas de um determinado maço de cartas até encontrar o terminador.
-    O código principal que vai ser executado no Visual Studio está no corpo do else a partir da linha 98. Também faz 
+    O código principal que vai ser executado no Visual Studio está no corpo do if a partir da linha 64. Também faz 
 parte do código a variável Card hand, definida na linha 47 e as constantes COLUNAS e CARTAS_NA_MAO, definidas nas
 linhas 10 e 11.
     O vetor hand é um vetor do tipo Card que irá armazenar uma certa quantidade de cartas que um certo jogador possui,
@@ -380,7 +381,7 @@ sequencia armazenada.
     A função fillHandExt considera que a mão de cartas ainda não existe, existe apenas um vetor do tipo Card cujo 
 endereço foi passado para a função através de wHand.
     Cada carta deve ser transferida para a hand à partir do início do deck (posição zero do vetor). Assim, após a
-transferência de cada carta, todas as cartas remanecentes do deck devem ser deslocadas de uma posição em direção ao
+transferência de cada carta, todas as cartas remanecentes no deck devem ser deslocadas de uma posição em direção ao
 início do deck, incluindo o terminador que será o último elemento do vetor deslocado. Assim, após cada transferência,
 o deck conterá uma carta a menos.
     Adicionalmente a função fillHandExt retorna através do retorno da função (comando return) a quantidade de cartas
